@@ -11,11 +11,13 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D rigidBody;
 	private Animator animator;
 	private RuntimePlatform platform;
+	private SpriteRenderer spriteRenderer;
 
 	void Awake(){
 		rigidBody = GetComponent<Rigidbody2D> ();
 		animator = GetComponent<Animator> ();
 		platform = Application.platform;
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 
 	void FixedUpdate(){
@@ -25,12 +27,21 @@ public class Player : MonoBehaviour {
 	void PlayerMovement(){
 		float forceX = 0f;
 		float velocity = Mathf.Abs (rigidBody.velocity.x);
-		float horInput;
+		float horInput = 0f;
+		float bounds = spriteRenderer.sprite.bounds.max.x;
+		float maxSpriteX = transform.position.x + bounds;
+		float mixSpriteX = transform.position.x - bounds;
 
 		if ((platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer) && Input.touchCount > 0) {
-			horInput = Mathf.Sign ((Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position)).x - transform.position.x);
-		} else if (Input.GetMouseButton (0)){ 
-			horInput = Mathf.Sign ((Camera.main.ScreenToWorldPoint (Input.mousePosition)).x - transform.position.x);
+			float inputX = (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position)).x;
+			if (inputX > maxSpriteX || inputX < mixSpriteX) {
+				horInput = Mathf.Sign (inputX - transform.position.x);
+			}
+		} else if (Input.GetMouseButton (0)){
+			float inputX = Camera.main.ScreenToWorldPoint (Input.mousePosition).x;
+			if(inputX > maxSpriteX || inputX < mixSpriteX){
+				horInput = Mathf.Sign ((Camera.main.ScreenToWorldPoint (Input.mousePosition)).x - transform.position.x);
+			}
 		} else {
 			horInput = Input.GetAxisRaw ("Horizontal");
 		}
