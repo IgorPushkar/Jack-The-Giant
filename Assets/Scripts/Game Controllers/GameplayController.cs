@@ -29,17 +29,21 @@ public class GameplayController : MonoBehaviour {
 	}
 
 	public void PauseGame(){
+		ClickSound ();
 		Time.timeScale = 0;
 		pausePanel.SetActive (true);
 	}
 
 	public void ResumeGame(){
+		ClickSound ();
 		Time.timeScale = 1;
 		pausePanel.SetActive (false);
 	}
 
 	public void QuitGame(){
+		ClickSound ();
 		Time.timeScale = 1;
+		GameObject.Find ("Player").SetActive (false);
 		//SceneManager.LoadScene ("Main");
 		FadeController.instance.StartFadeIn ("Main");
 	}
@@ -82,5 +86,9 @@ public class GameplayController : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		//SceneManager.LoadScene ("Gameplay");
 		FadeController.instance.StartFadeIn ("Gameplay");
+	}
+
+	void ClickSound(){
+		GameObject.Find ("Music Controller").GetComponent<ClickController>().PlayClickSound();
 	}
 }

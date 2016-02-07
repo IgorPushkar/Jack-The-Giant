@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour {
 			restartedAfterDeath = false;
 			GameObject.Find ("Pause Button").SetActive (false);
 
+			AdsController.instance.ShowInterstitial ();
+
 			GameplayController.instance.ShowGameoverPanel (scoreCount, coinCount);
 		} else {
 			this.scoreCount = scoreCount;
