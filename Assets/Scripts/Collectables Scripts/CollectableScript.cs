@@ -4,7 +4,7 @@ using System.Collections;
 public class CollectableScript : MonoBehaviour {
 
 	void OnEnable(){
-		Invoke ("DestroyCollectable", 9f);
+		Invoke ("DestroyCollectable", 6f);
 	}
 
 	void DestroyCollectable(){

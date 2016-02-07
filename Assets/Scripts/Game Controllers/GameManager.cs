@@ -44,8 +44,16 @@ public class GameManager : MonoBehaviour {
 
 	public void CheckGameStatus(int scoreCount, int coinCount, int lifeCount){
 		if(lifeCount < 0){
+			if(scoreCount > GamePreferences.GetScore()){
+				GamePreferences.SetScore (scoreCount);
+			}
+			if(coinCount > GamePreferences.GetCoins()){
+				GamePreferences.SetCoins (coinCount);
+			}
+
 			startedFromMain = false;
 			restartedAfterDeath = false;
+			GameObject.Find ("Pause Button").SetActive (false);
 
 			GameplayController.instance.ShowGameoverPanel (scoreCount, coinCount);
 		} else {

@@ -40,7 +40,8 @@ public class GameplayController : MonoBehaviour {
 
 	public void QuitGame(){
 		Time.timeScale = 1;
-		SceneManager.LoadScene ("Main");
+		//SceneManager.LoadScene ("Main");
+		FadeController.instance.StartFadeIn ("Main");
 	}
 
 	public void SetScoreCount(int scoreCount){
@@ -64,7 +65,8 @@ public class GameplayController : MonoBehaviour {
 
 	IEnumerator LoadMainMenu(){
 		yield return new WaitForSeconds (3);
-		SceneManager.LoadScene ("Main");
+		//SceneManager.LoadScene ("Main");
+		FadeController.instance.StartFadeIn ("Main");
 	}
 
 	public void StartGame(){
@@ -78,6 +80,7 @@ public class GameplayController : MonoBehaviour {
 
 	IEnumerator OnPlayerDeathRestart(){
 		yield return new WaitForSeconds (1);
-		SceneManager.LoadScene ("Gameplay");
+		//SceneManager.LoadScene ("Gameplay");
+		FadeController.instance.StartFadeIn ("Gameplay");
 	}
 }
