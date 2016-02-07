@@ -18,6 +18,10 @@ public class CloudSpawner : MonoBehaviour {
 		SetMinAndMaxX ();
 		CreateCloud();
 		player = GameObject.Find ("Player");
+
+		for(int i = 0; i < collectables.Length; i++){
+			collectables [i].SetActive (false);
+		}
 	}
 
 	void Start(){
@@ -27,8 +31,8 @@ public class CloudSpawner : MonoBehaviour {
 	void SetMinAndMaxX(){
 		Vector3 bounds = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width, Screen.height, 0));
 
-		maxX = bounds.x - 0.5f;
-		minX = -bounds.x + 0.5f;
+		maxX = bounds.x - 0.75f;
+		minX = -bounds.x + 0.75f;
 	}
 
 	void Shuffle(GameObject[] array){
@@ -126,6 +130,24 @@ public class CloudSpawner : MonoBehaviour {
 
 						clouds[i].transform.position = temp;
 						clouds[i].SetActive (true);
+
+						int random = Random.Range (0, collectables.Length);
+						if(clouds[i].tag != "Deadly"){
+							if(!collectables[random].activeInHierarchy){
+								Vector2 temp2 = clouds [i].transform.position;
+								temp2.y += 0.7f;
+
+								if(collectables[random].tag == "Life"){
+									if(PlayerScore.lifeCount < 2){
+										collectables [random].transform.position = temp2;
+										collectables [random].SetActive (true);
+									}
+								} else {
+									collectables [random].transform.position = temp2;
+									collectables [random].SetActive (true);
+								}
+							}
+						}
 					}
 				}
 			}

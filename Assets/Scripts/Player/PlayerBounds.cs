@@ -19,7 +19,7 @@ public class PlayerBounds : MonoBehaviour {
 		Vector3 bounds = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width, Screen.height, 0));
 		float width = GetComponent<SpriteRenderer>().bounds.size.x / 2;
 
-		maxX = bounds.x - width;
-		minX = -bounds.x + width;
+		maxX = bounds.x - width / 2;
+		minX = -bounds.x + width / 2;
 	}
 }

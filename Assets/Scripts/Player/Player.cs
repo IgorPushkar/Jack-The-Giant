@@ -29,8 +29,8 @@ public class Player : MonoBehaviour {
 		float velocity = Mathf.Abs (rigidBody.velocity.x);
 		float horInput = 0f;
 		float bounds = spriteRenderer.sprite.bounds.max.x;
-		float maxSpriteX = transform.position.x + bounds;
-		float mixSpriteX = transform.position.x - bounds;
+		float maxSpriteX = transform.position.x + bounds / 2;
+		float mixSpriteX = transform.position.x - bounds / 2;
 
 		if ((platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer) && Input.touchCount > 0) {
 			float inputX = (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position)).x;
